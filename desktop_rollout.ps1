@@ -2,7 +2,7 @@
 #
 #
 #
-#                            Jacksonville Jaguars workstation rollout
+#                            workstation rollout
 #                            Author: Andrew Williams
 #                            Date Published: 09/01/2016
 #
@@ -50,7 +50,7 @@ New-PSDrive -name W -psprovider FileSystem -root \\\\avserver1.jaguars.net\ofcsc
 [string]$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path                                               #Reference to script path
 [string]$itfiles = "X:\"                                                                                            #Path to root of PSDrive
 [string]$Wallpaper = join-path $itfiles "Desktop Apps\Wallpaper"                                                    #Path to Wallpaper folder
-[string]$Office = join-path $itfiles "Office\off2013"                                                               #Path to Office installation
+#[string]$Office = join-path $itfiles "Office\off2013"                                                               #Path to Office installation
 [string]$TrendMicro = join-path $itfiles "rollout\TrendMicro"                                                       #Path to TrendMicro
 [string]$TLS_disable = join-path $itfiles "rollout\scripts"                                                         #Path to TLS_RC4 script
 [string]$JagFonts = join-path $itfiles "rollout\fonts\font_rollout"                                                 #Path to fonts folder
@@ -61,11 +61,11 @@ New-PSDrive -name W -psprovider FileSystem -root \\\\avserver1.jaguars.net\ofcsc
 ##################################################################################################
 
 ##################################### Install Office #############################################
-
+<#
 Function Install-Office {
     
     param (
-        [Parameter(Mandatory=$true, HelpMessage = "Path to folder containing Office install files")][string] $path,
+       [Parameter(Mandatory=$true, HelpMessage = "Path to folder containing Office install files")][string] $path,
         [Parameter(Mandatory=$true, HelpMessage = "Path of the folder to which files will be copied")][string] $target
     )
 
@@ -76,7 +76,7 @@ Function Install-Office {
             "Downloads Office 2013 to this machine."
         $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No", `
             "Does not install Office on this machine."
-        $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes, $no)
+        $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes, $no) 
         $result = $host.ui.PromptForChoice($title, $message, $options, 1)
         switch ($result) {
             0 {"You selected Yes."}
@@ -94,7 +94,7 @@ Function Install-Office {
     write-host Unable to connect to office folder. Moving on.
     }
 }
-
+#>
 ###################################################################################################
 
 ###################################### Lockscreen set #############################################
@@ -121,7 +121,7 @@ Function Set-LockScreen {
     }
     icacls $SystemData /t /c /l /q /grant:r Administrators:F
     Rename-Item $ScreenPath\img100.jpg -NewName img106.jpg
-    Copy-Item C:\Windows\web\wallpaper\Windows\img0.jpg $ScreenPath\img100.jpg -Force
+    Copy-Item C:\wallpaper\img100.jpg $ScreenPath\img100.jpg -Force
 }
 
 ###################################################################################################
@@ -196,13 +196,13 @@ function install-fonts {
 ###################
 #Start Office Install
 ###################
-
-Install-Office -path $office -target $TargetPath
+#Disabled Until 2016 executable is setup/enabled
+#Install-Office -path $office -target $TargetPath
 
 ###################
 #Enable File and Print Sharing
 ###################
-
+#still works in Win 10
 write-output "Enabling File and Print Sharing now"
 netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=yes
 netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes 
@@ -210,7 +210,7 @@ netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes
 ###################
 #TrendMicro Installation
 ###################
-
+#AVserver always has up to date installer
 write-output "Starting TrendMicro Installation"
 & 'W:\autopcc.exe'
 write-output "TrendMicro installation has finished"
