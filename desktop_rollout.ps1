@@ -177,7 +177,7 @@ function setup-VPN {
         return
     }
 
-    Add-VPNConnection -Name "Jaguars VPN" -ServerAddress "APN.jaguars.com" -TunnelType "L2TP" -EncryptionLevel "Optional" -AuthenticationMethod "MSCHAPv2" -AllUserConnection -L2tpPsk "06F06573072C8A9A" -UseWinlogonCredential
+    Add-VPNConnection -Name "Jaguars VPN" -ServerAddress "APN.jaguars.com" -TunnelType "L2TP" -EncryptionLevel "Optional" -AuthenticationMethod "MSCHAPv2" -AllUserConnection -L2tpPsk "06F06573072C8A9A"
 }
 
 ###################################################################################################
