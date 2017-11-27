@@ -20,4 +20,4 @@ else
 }
 
 }
-#Read-Host 'Press Enter to continue…' | Out-Null
+Read-Host 'Press Enter to continue…' | Out-Null
