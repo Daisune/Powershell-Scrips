@@ -1,0 +1,1 @@
+psexec \\COMPUTERNAME -h -i /accepteula cmd /c \\fileserver1\users\awilliams\INSTALLATION_FILE

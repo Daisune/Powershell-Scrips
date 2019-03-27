@@ -1,0 +1,1 @@
+psexec \\[COMPUTER] -h cmd /c "msiexec.exe /i \\[SERVER]\[FILE] /quiet /norestart"
